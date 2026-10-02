@@ -68,7 +68,12 @@ export function Layout({ children }: { children: ReactNode }) {
         </div>
       </header>
       <main className="main">{children}</main>
-      <footer className="footer">{t('footer.note')}</footer>
+      <footer className="footer">
+        {t('footer.note')}
+        <div className="muted" style={{ marginTop: 6, fontSize: '0.8rem', fontFamily: 'var(--mono)' }}>
+          v{__APP_VERSION__}
+        </div>
+      </footer>
     </div>
   )
 }
