@@ -42,3 +42,12 @@ export function sliderFromLog(v: number, min: number, max: number): number {
 }
 
 export const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v))
+
+/** Parse "4.7k", "100n", "2.2u", "2,2µ", "1M", "0.5" into a number. Returns NaN if unparseable. */
+export function parseSI(input: string): number {
+  const s = input.trim().replace(',', '.').replace(/\s+/g, '')
+  const m = /^([-+]?\d*\.?\d+(?:e[-+]?\d+)?)\s*([pnuµμmkMG]?)/.exec(s)
+  if (!m) return NaN
+  const mult: Record<string, number> = { p: 1e-12, n: 1e-9, u: 1e-6, 'µ': 1e-6, 'μ': 1e-6, m: 1e-3, k: 1e3, M: 1e6, G: 1e9, '': 1 }
+  return Number(m[1]) * mult[m[2]]
+}

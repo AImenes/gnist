@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { usePageHead } from '../../seo/usePageHead'
 import { useT } from '../../i18n'
 import { Slider } from '../../components/Slider'
 import { Formula, Op } from '../../components/Formula'
@@ -12,6 +13,7 @@ const MAX_TERMS = 30
 
 export function FourierEpicycles() {
   const { t } = useT()
+  usePageHead('/signals/fourier')
   const [kind, setKind] = useState<WaveKind>('square')
   const [count, setCount] = useState(3)
   const [omega, setOmega] = useState(1.2)

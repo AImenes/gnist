@@ -1,16 +1,19 @@
 import React from 'react'
-import ReactDOM from 'react-dom/client'
+import { createRoot, hydrateRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App'
-import { LangProvider } from './i18n'
 import './styles/global.css'
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+const root = document.getElementById('root')!
+const app = (
   <React.StrictMode>
     <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-      <LangProvider>
-        <App />
-      </LangProvider>
+      <App />
     </BrowserRouter>
-  </React.StrictMode>,
+  </React.StrictMode>
 )
+if (root.hasChildNodes())
+  hydrateRoot(root, app, {
+    onRecoverableError: (err, info) => console.warn('hydration', err, (info as { componentStack?: string })?.componentStack),
+  })
+else createRoot(root).render(app)

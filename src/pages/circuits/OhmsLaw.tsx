@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { usePageHead } from '../../seo/usePageHead'
 import { useT } from '../../i18n'
 import { Slider } from '../../components/Slider'
 import { Formula, Num, Op } from '../../components/Formula'
@@ -13,6 +14,7 @@ type Locked = 'U' | 'R' | 'I'
 
 export function OhmsLaw() {
   const { t, V } = useT()
+  usePageHead('/circuits/ohm')
   const [locked, setLocked] = useState<Locked>('I')
   const [U, setU] = useState(9)
   const [R, setR] = useState(100)
@@ -35,7 +37,7 @@ export function OhmsLaw() {
 
   return (
     <>
-      <Breadcrumb items={[{ to: '/circuits', label: t('circuits.title') }, { label: t('circuits.ohm.title') }]} />
+      <Breadcrumb items={[{ to: '/circuits/learn', label: t('circuits.title') }, { label: t('circuits.ohm.title') }]} />
       <h1>{t('circuits.ohm.title')}</h1>
       <p className="lead">{t('ohm.lead')}</p>
 

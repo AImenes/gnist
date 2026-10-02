@@ -1,8 +1,10 @@
-import { Link } from 'react-router-dom'
+import { Link } from '../../components/L'
+import { usePageHead } from '../../seo/usePageHead'
 import { useT } from '../../i18n'
 
 export function CircuitsHome() {
   const { t } = useT()
+  usePageHead('/circuits/learn')
   const topics = [
     { to: '/circuits/ohm', title: t('circuits.ohm.title'), sub: t('circuits.ohm.sub') },
     { to: '/circuits/components', title: t('circuits.components.title'), sub: t('circuits.components.sub') },
