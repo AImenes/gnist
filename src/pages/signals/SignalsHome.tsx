@@ -1,8 +1,10 @@
-import { Link } from 'react-router-dom'
+import { Link } from '../../components/L'
+import { usePageHead } from '../../seo/usePageHead'
 import { useT } from '../../i18n'
 
 export function SignalsHome() {
   const { t } = useT()
+  usePageHead('/signals')
   const topics = [
     { to: '/signals/fourier', title: t('signals.fourier.title'), sub: t('signals.fourier.sub') },
     { to: '/signals/builder', title: t('signals.builder.title'), sub: t('signals.builder.sub') },

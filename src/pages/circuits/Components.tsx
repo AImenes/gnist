@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { usePageHead } from '../../seo/usePageHead'
 import { useT } from '../../i18n'
 import { Slider } from '../../components/Slider'
 import { Formula, Op } from '../../components/Formula'
@@ -14,6 +15,7 @@ type Comp = 'R' | 'C' | 'L'
 
 export function Components() {
   const { t, V } = useT()
+  usePageHead('/circuits/components')
   const [comp, setComp] = useState<Comp>('C')
   const [R, setR] = useState(100)
   const [C, setC] = useState(10e-6)
@@ -83,7 +85,7 @@ export function Components() {
 
   return (
     <>
-      <Breadcrumb items={[{ to: '/circuits', label: t('circuits.title') }, { label: t('circuits.components.title') }]} />
+      <Breadcrumb items={[{ to: '/circuits/learn', label: t('circuits.title') }, { label: t('circuits.components.title') }]} />
       <h1>{t('circuits.components.title')}</h1>
       <p className="lead">{t('comp.lead')}</p>
 

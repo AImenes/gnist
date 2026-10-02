@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { usePageHead } from '../../seo/usePageHead'
 import { useT } from '../../i18n'
 import { Slider } from '../../components/Slider'
 import { Formula, Op } from '../../components/Formula'
@@ -23,6 +24,7 @@ const PRESETS: Record<string, () => Sine[]> = {
 
 export function SineBuilder() {
   const { t } = useT()
+  usePageHead('/signals/builder')
   const [sines, setSines] = useState<Sine[]>(() => [mk(1, 2), mk(0.5, 5)])
   const [showParts, setShowParts] = useState(true)
 

@@ -23,30 +23,23 @@ Other scripts:
 | `npm run preview`   | Serve the built site locally                   |
 | `npm run typecheck` | TypeScript only                                |
 
-## What is in the first version
+## What is in it
 
-Two tracks, chosen from the front page.
+Two tracks, chosen from the front page. Every page exists in Norwegian (`/nb/…`) and English (`/en/…`).
 
-**Circuit theory** (`/circuits`)
+**Circuit lab** (`/circuits`) – the core. A Falstad-style drawing board: pick a tool, drag on the grid,
+and the circuit runs as you draw. Wires, resistors, capacitors, inductors, batteries, AC sources,
+switches and ground. Voltage shows as colour, conventional current as moving dots, and any element
+can be pinned to a scope strip showing voltage and current over time. The simulator is a Modified
+Nodal Analysis engine with trapezoidal companion models (`src/sim/engine.ts`), linear elements only
+for now, verified against RC, LRC resonance and AC impedance cases. The board autosaves to
+`localStorage`. Hotkeys: W R C L V A S G for tools, Esc to select, Delete, Space to pause.
 
-1. **Ohm's law** – lock one of U, R, I and drag the other two. The loop shows conventional
-   current as moving dots whose speed and density follow I. Power is shown too.
-2. **Resistor, inductor, capacitor** – each component's defining equation, an animated
-   applied/response wave that makes the 90° lead visible, and a log–log plot of |Z| versus
-   frequency for all three.
-3. **RC and RL step response** – a switch closes at t = 0; the capacitor fills (or the
-   inductor's field grows) while the curves trace 1 − e^(−t/τ) with 1τ and 5τ marked.
-4. **Series and parallel** – three resistors, both topologies, per-resistor U, I and P,
-   and current dots that split between branches.
+**Theory** (`/circuits/learn`) – interactive explanations: Ohm's law, resistor/inductor/capacitor
+with phase and impedance plots, RC and RL step response, series and parallel.
 
-**Signal theory** (`/signals`)
-
-1. **Fourier series with rotating circles** – the classic epicycle animation. Each term is
-   an arm of radius A spinning at nω; the chained tip traces the wave on the right.
-   Square, sawtooth and triangle targets, 1–30 terms, a live spectrum and the series
-   written out.
-2. **Build a signal from sines** – add up to seven sines with amplitude, frequency and
-   phase, and see the time domain and the line spectrum side by side.
+**Signals** (`/signals`) – Fourier series as rotating epicycles converging on square, sawtooth and
+triangle waves, and a sine builder showing time and frequency domains side by side.
 
 ## Deploy (gnist.tools on Cloudflare Workers)
 
@@ -57,11 +50,17 @@ refresh on `/signals/fourier` works. Do not add a `_redirects` file; Workers rej
 redirect as a loop.
 
 - Build command `npm run build`, deploy command `npx wrangler deploy`, Node from `.node-version`.
+- `npm run build` typechecks, builds the client, builds an SSR bundle and runs `scripts/prerender.mjs`,
+  which writes static HTML for every route in both languages plus `sitemap.xml` and `robots.txt`.
+  Each page carries its own title, description, canonical, hreflang, Open Graph and JSON-LD tags
+  (copy lives in `src/seo/pages.ts`). The client hydrates the prerendered markup.
+- `html_handling: drop-trailing-slash` keeps canonical URLs without a trailing slash.
 - Production branch is `main`. Every merge to `main` builds and deploys.
 - The custom domain `gnist.tools` is attached under the Worker's Domains tab.
 
 ## Conventions
 
+- The language is part of the URL. `/` hops to the visitor's stored or browser language.
 - Voltage is written **U** in Norwegian and **V** in English, following each tradition.
 - Resistors are drawn as the IEC rectangle in Norwegian and the ANSI zigzag in English.
 - Language and light/dark theme are remembered in `localStorage`.
@@ -74,15 +73,20 @@ SVG or Canvas in `src/viz/`, so it can be tuned freely. Strings live in
 
 ```
 src/
-  i18n/        language provider and the NB/EN dictionary
-  components/  layout, slider, formula, readouts, callouts
-  viz/         circuit symbols, current dots, plot, spectrum, epicycles
-  lib/         Fourier coefficients, SI formatting, animation hook
-  pages/       one file per topic, under circuits/ and signals/
+  i18n/        language provider (URL-driven) and the NB/EN dictionary
+  seo/         head manager, per-page titles and descriptions
+  sim/         circuit simulator: types, MNA engine, example circuits
+  components/  layout, slider, formula, readouts, callouts, language-aware links
+  viz/         circuit symbols, current dots, plot, spectrum, epicycles, lab board and scopes
+  lib/         Fourier coefficients, SI formatting and parsing, animation hook
+  pages/       one file per page, under circuits/ and signals/
+  entry-server.tsx   SSR entry used by scripts/prerender.mjs
 ```
 
 ## Roadmap ideas
 
+- Diodes, transistors and op-amps in the lab (needs a Newton loop in the engine).
+- Share a circuit by URL.
 - Class A/B amplifier: bias, crossover distortion, an audio signal through the stage.
 - AC phasor view and RLC resonance.
 - Thévenin / Norton, Kirchhoff's laws with a small node solver.

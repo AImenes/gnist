@@ -1,4 +1,5 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, type ReactNode } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { strings, type Lang, type StringKey } from './strings'
 
 type Ctx = {
@@ -11,32 +12,41 @@ type Ctx = {
 
 const LangContext = createContext<Ctx | null>(null)
 
-function detectLang(): Lang {
+/** Preferred language from a stored choice, else the browser locale. Client only. */
+export function detectLang(): Lang {
   try {
     const stored = localStorage.getItem('gnist.lang')
     if (stored === 'nb' || stored === 'en') return stored
   } catch {
     /* ignore */
   }
-  const nav = (navigator.language || '').toLowerCase()
-  return nav.startsWith('nb') || nav.startsWith('nn') || nav.startsWith('no') ? 'nb' : 'en'
+  const nav = (typeof navigator !== 'undefined' && navigator.language) || ''
+  const l = nav.toLowerCase()
+  return l.startsWith('nb') || l.startsWith('nn') || l.startsWith('no') ? 'nb' : 'en'
 }
 
-export function LangProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>(detectLang)
-
-  const setLang = useCallback((l: Lang) => {
-    setLangState(l)
-    try {
-      localStorage.setItem('gnist.lang', l)
-    } catch {
-      /* ignore */
-    }
-  }, [])
+/** The language comes from the URL (/nb/… or /en/…); switching navigates to the same page in the other language. */
+export function LangProvider({ lang, children }: { lang: Lang; children: ReactNode }) {
+  const navigate = useNavigate()
+  const location = useLocation()
 
   useEffect(() => {
     document.documentElement.lang = lang
+    try {
+      localStorage.setItem('gnist.lang', lang)
+    } catch {
+      /* ignore */
+    }
   }, [lang])
+
+  const setLang = useCallback(
+    (l: Lang) => {
+      if (l === lang) return
+      const rest = location.pathname.replace(/^\/(nb|en)(?=\/|$)/, '')
+      navigate(`/${l}${rest}${location.search}${location.hash}`)
+    },
+    [lang, location, navigate],
+  )
 
   const value = useMemo<Ctx>(() => {
     const dict = strings[lang]

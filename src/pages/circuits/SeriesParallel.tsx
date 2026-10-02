@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { usePageHead } from '../../seo/usePageHead'
 import { useT } from '../../i18n'
 import { Slider } from '../../components/Slider'
 import { Formula, Num, Op } from '../../components/Formula'
@@ -14,6 +15,7 @@ const COLORS = ['var(--accent)', 'var(--blue)', 'var(--green)']
 
 export function SeriesParallel() {
   const { t, V } = useT()
+  usePageHead('/circuits/series-parallel')
   const [mode, setMode] = useState<Mode>('series')
   const [U, setU] = useState(12)
   const [Rs, setRs] = useState([100, 220, 470])
@@ -34,7 +36,7 @@ export function SeriesParallel() {
 
   return (
     <>
-      <Breadcrumb items={[{ to: '/circuits', label: t('circuits.title') }, { label: t('circuits.sp.title') }]} />
+      <Breadcrumb items={[{ to: '/circuits/learn', label: t('circuits.title') }, { label: t('circuits.sp.title') }]} />
       <h1>{t('circuits.sp.title')}</h1>
       <p className="lead">{t('sp.lead')}</p>
 

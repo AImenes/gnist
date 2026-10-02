@@ -113,3 +113,27 @@ function Label({ children, rotate }: { children: string; rotate: number }) {
     </text>
   )
 }
+
+export function GroundSymbol({ x, y, rotate = 0 }: { x: number; y: number; rotate?: number }) {
+  // Terminal at (-30,0) side is unused; the symbol hangs from (0,-14) downwards when rotate=0.
+  return (
+    <g transform={`translate(${x} ${y}) rotate(${rotate})`}>
+      <line x1={0} y1={-16} x2={0} y2={-4} stroke={stroke} strokeWidth={2} />
+      <line x1={-12} y1={-4} x2={12} y2={-4} stroke={stroke} strokeWidth={2.5} />
+      <line x1={-8} y1={2} x2={8} y2={2} stroke={stroke} strokeWidth={2.5} />
+      <line x1={-4} y1={8} x2={4} y2={8} stroke={stroke} strokeWidth={2.5} />
+    </g>
+  )
+}
+
+export function AcSymbol({ x, y, rotate = 0, label }: { x: number; y: number; rotate?: number; label?: string }) {
+  return (
+    <g transform={`translate(${x} ${y}) rotate(${rotate})`}>
+      <line x1={-30} y1={0} x2={-12} y2={0} stroke={stroke} strokeWidth={2} />
+      <line x1={12} y1={0} x2={30} y2={0} stroke={stroke} strokeWidth={2} />
+      <circle cx={0} cy={0} r={12} fill="var(--bg-elev)" stroke={stroke} strokeWidth={2} />
+      <path d="M -7 0 Q -3.5 -8 0 0 T 7 0" fill="none" stroke={stroke} strokeWidth={1.8} />
+      {label && <Label rotate={rotate}>{label}</Label>}
+    </g>
+  )
+}

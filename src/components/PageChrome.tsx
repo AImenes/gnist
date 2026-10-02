@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link } from './L'
 import { useT } from '../i18n'
 import type { StringKey } from '../i18n/strings'
 

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { usePageHead } from '../../seo/usePageHead'
 import { useT } from '../../i18n'
 import { Slider } from '../../components/Slider'
 import { Formula, Num, Op } from '../../components/Formula'
@@ -15,6 +16,7 @@ type Mode = 'RC' | 'RL'
 
 export function StepResponse() {
   const { t, V } = useT()
+  usePageHead('/circuits/step')
   const [mode, setMode] = useState<Mode>('RC')
   const [U, setU] = useState(9)
   const [R, setR] = useState(1000)
@@ -52,7 +54,7 @@ export function StepResponse() {
 
   return (
     <>
-      <Breadcrumb items={[{ to: '/circuits', label: t('circuits.title') }, { label: t('circuits.rc.title') }]} />
+      <Breadcrumb items={[{ to: '/circuits/learn', label: t('circuits.title') }, { label: t('circuits.rc.title') }]} />
       <h1>{t('circuits.rc.title')}</h1>
       <p className="lead">{t('rc.lead')}</p>
 
