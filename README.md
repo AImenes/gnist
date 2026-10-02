@@ -48,18 +48,17 @@ Two tracks, chosen from the front page.
 2. **Build a signal from sines** – add up to seven sines with amplitude, frequency and
    phase, and see the time domain and the line spectrum side by side.
 
-## Deploy (gnist.tools on Cloudflare Pages)
+## Deploy (gnist.tools on Cloudflare Workers)
 
-The site is static, so it is hosted for free on Cloudflare Pages, built from this repo.
+The site is static and is served for free as Cloudflare Workers static assets, built from this repo
+by Workers Builds. The Worker is configured in `wrangler.jsonc`: assets come from `dist`, and
+`not_found_handling: single-page-application` returns `index.html` for client-side routes so a hard
+refresh on `/signals/fourier` works. Do not add a `_redirects` file; Workers rejects a catch-all
+redirect as a loop.
 
-1. Cloudflare dashboard → **Workers & Pages** → **Create** → **Pages** → **Connect to Git** → pick `AImenes/gnist`.
-2. Build settings: framework preset **Vite**, build command `npm run build`, output directory `dist`.
-   Node version comes from `.node-version`.
-3. After the first deploy: project → **Custom domains** → add `gnist.tools` (and `www.gnist.tools`).
-   Cloudflare writes the DNS records itself since the zone is in the same account.
-
-Every push to the production branch redeploys. Every other branch gets its own preview URL.
-`public/_redirects` sends unknown paths to `index.html` so client-side routes work on a hard refresh.
+- Build command `npm run build`, deploy command `npx wrangler deploy`, Node from `.node-version`.
+- Production branch is `main`. Every merge to `main` builds and deploys.
+- The custom domain `gnist.tools` is attached under the Worker's Domains tab.
 
 ## Conventions
 
