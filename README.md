@@ -48,6 +48,19 @@ Two tracks, chosen from the front page.
 2. **Build a signal from sines** – add up to seven sines with amplitude, frequency and
    phase, and see the time domain and the line spectrum side by side.
 
+## Deploy (gnist.tools on Cloudflare Pages)
+
+The site is static, so it is hosted for free on Cloudflare Pages, built from this repo.
+
+1. Cloudflare dashboard → **Workers & Pages** → **Create** → **Pages** → **Connect to Git** → pick `AImenes/gnist`.
+2. Build settings: framework preset **Vite**, build command `npm run build`, output directory `dist`.
+   Node version comes from `.node-version`.
+3. After the first deploy: project → **Custom domains** → add `gnist.tools` (and `www.gnist.tools`).
+   Cloudflare writes the DNS records itself since the zone is in the same account.
+
+Every push to the production branch redeploys. Every other branch gets its own preview URL.
+`public/_redirects` sends unknown paths to `index.html` so client-side routes work on a hard refresh.
+
 ## Conventions
 
 - Voltage is written **U** in Norwegian and **V** in English, following each tradition.
