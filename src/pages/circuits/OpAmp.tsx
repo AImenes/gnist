@@ -221,7 +221,10 @@ function Schematic({ cfg, Rin, Rf, vIn, vOut, vMinus, vPlus, Vref, V }: SchemPro
           <GroundSymbol x={200} y={226} />
           {OA}
           {node(40, 138, `${V}in`, vIn, 'start', 22)}
-          {node(190, 138, `${V}−`, vMinus, 'end', 22)}
+          <circle cx={190} cy={138} r={3.5} fill="var(--accent)" />
+          <text x={182} y={104} textAnchor="end" fill="var(--accent)" style={mono}>
+            {V}− = {si(vMinus, 'V', 3)}
+          </text>
           {node(420, 150, `${V}out`, vOut, 'end', -10)}
         </>
       )}
