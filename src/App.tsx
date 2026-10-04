@@ -8,6 +8,7 @@ import { CircuitsHome } from './pages/circuits/CircuitsHome'
 import { CircuitLab } from './pages/circuits/CircuitLab'
 import { OhmsLaw } from './pages/circuits/OhmsLaw'
 import { Components } from './pages/circuits/Components'
+import { OpAmp } from './pages/circuits/OpAmp'
 import { StepResponse } from './pages/circuits/StepResponse'
 import { SeriesParallel } from './pages/circuits/SeriesParallel'
 import { SignalsHome } from './pages/signals/SignalsHome'
@@ -64,6 +65,7 @@ export default function App() {
       <Route path="circuits/learn" element={<CircuitsHome />} />
       <Route path="circuits/ohm" element={<OhmsLaw />} />
       <Route path="circuits/components" element={<Components />} />
+      <Route path="circuits/opamp" element={<OpAmp />} />
       <Route path="circuits/step" element={<StepResponse />} />
       <Route path="circuits/series-parallel" element={<SeriesParallel />} />
       <Route path="signals" element={<SignalsHome />} />

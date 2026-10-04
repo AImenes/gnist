@@ -195,7 +195,7 @@ export function SeriesParallel() {
         </div>
       </div>
 
-      <PageNav prev={{ to: '/circuits/step', key: 'circuits.rc.title' }} />
+      <PageNav prev={{ to: '/circuits/step', key: 'circuits.rc.title' }} next={{ to: '/circuits/components', key: 'circuits.components.title' }} />
     </>
   )
 }

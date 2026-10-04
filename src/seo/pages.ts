@@ -38,6 +38,10 @@ export const PAGE_META: Record<string, Record<Lang, { title: string; description
     nb: { title: 'Motstand, spole og kondensator – hva de gjør, visuelt | Gnist', description: 'Hvordan en motstand, en spole og en kondensator reagerer på likespenning og vekselspenning. Faseforskyvning på 90° og impedans mot frekvens, animert.' },
     en: { title: 'Resistor, inductor and capacitor – what they do, visually | Gnist', description: 'How a resistor, an inductor and a capacitor respond to DC and AC. The 90° phase shift and impedance versus frequency, animated.' },
   },
+  '/circuits/opamp': {
+    nb: { title: 'Operasjonsforsterker forklart: inverterende, ikke-inverterende, følger, komparator | Gnist', description: 'Interaktiv op-amp: dra i Rin og Rf, se forsterkningen, den virtuelle jorden og klipping mot forsyningsgrensene. De to gylne reglene forklart med levende skjema og kurver.' },
+    en: { title: 'Op-amp explained: inverting, non-inverting, follower, comparator | Gnist', description: 'Interactive op-amp: drag Rin and Rf, watch the gain, the virtual ground and clipping at the supply rails. The two golden rules explained with a live schematic and waveforms.' },
+  },
   '/circuits/step': {
     nb: { title: 'RC- og RL-kretser: lading, tidskonstant τ og sprangrespons | Gnist', description: 'Se en kondensator lades og en spole magnetiseres når bryteren lukkes. Tidskonstanten τ = RC og τ = L/R forklart med animerte kurver.' },
     en: { title: 'RC and RL circuits: charging, time constant τ and step response | Gnist', description: 'Watch a capacitor charge and an inductor energise when the switch closes. The time constant τ = RC and τ = L/R explained with animated curves.' },

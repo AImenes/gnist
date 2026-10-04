@@ -253,7 +253,7 @@ export function Components() {
         </div>
       </div>
 
-      <PageNav prev={{ to: '/circuits/ohm', key: 'circuits.ohm.title' }} next={{ to: '/circuits/step', key: 'circuits.rc.title' }} />
+      <PageNav prev={{ to: '/circuits/series-parallel', key: 'circuits.sp.title' }} next={{ to: '/circuits/opamp', key: 'circuits.opamp.title' }} />
     </>
   )
 }

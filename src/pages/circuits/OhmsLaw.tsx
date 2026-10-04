@@ -166,7 +166,7 @@ export function OhmsLaw() {
         </div>
       </div>
 
-      <PageNav next={{ to: '/circuits/components', key: 'circuits.components.title' }} />
+      <PageNav next={{ to: '/circuits/step', key: 'circuits.rc.title' }} />
     </>
   )
 }

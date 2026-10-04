@@ -58,7 +58,7 @@ const en = {
 
   // Circuits index
   'circuits.title': 'Circuit theory',
-  'circuits.sub': 'Start with Ohm’s law, then meet the three basic components, then combine them.',
+  'circuits.sub': 'Fundamentals first, then the components one by one. Every page is something you can drag.',
   'circuits.ohm.title': 'Ohm’s law',
   'circuits.ohm.sub': 'How voltage, current and resistance pull on each other.',
   'circuits.components.title': 'Resistor, inductor, capacitor',
@@ -214,6 +214,43 @@ const en = {
   'lab.empty': 'Empty board. Pick a tool above and drag to draw, or load an example.',
   'notfound.title': 'Nothing on this node',
   'notfound.sub': 'The page you asked for does not exist. The circuit is open.',
+  // Theory index sections
+  'learn.sec.fund': 'Fundamentals',
+  'learn.sec.comp': 'Components',
+  'circuits.opamp.title': 'Op-amp',
+  'circuits.opamp.sub': 'Two golden rules, four circuits, and what happens at the supply rails.',
+
+  // Op-amp page
+  'opamp.lead':
+    'An op-amp amplifies the difference between its two inputs by an enormous factor. Alone, that just slams the output into a supply rail. Close the loop with resistors and the resistors, not the chip, set the gain.',
+  'opamp.rules': 'The two golden rules',
+  'opamp.rule1': 'No current flows into either input.',
+  'opamp.rule2': 'With negative feedback, the output does whatever it takes to make V+ equal V−.',
+  'opamp.cfg.inverting': 'Inverting',
+  'opamp.cfg.noninverting': 'Non-inverting',
+  'opamp.cfg.follower': 'Follower',
+  'opamp.cfg.comparator': 'Comparator',
+  'opamp.cfg.inverting.desc': 'Input through Rin into the − pin, Rf feeds the output back. Gain is −Rf/Rin and the − pin sits at 0 V: a virtual ground.',
+  'opamp.cfg.noninverting.desc': 'Input on the + pin, a divider from the output sets the − pin. Gain is 1 + Rf/R1, never below one, and the input draws no current.',
+  'opamp.cfg.follower.desc': 'Output wired straight to the − pin. Gain is exactly one. Useless on paper, essential in practice: it copies a voltage without loading the source.',
+  'opamp.cfg.comparator.desc': 'No feedback at all. The output is at +Vcc when Vin is above Vref and at −Vcc below it. An analog signal becomes a digital one.',
+  'opamp.intuition.inverting':
+    'Rule 2 pins the − input at 0 V because the + input is grounded. Rule 1 says the current through Rin has nowhere to go but through Rf. So Vin/Rin = −Vout/Rf, and the ratio of the resistors is the gain. Watch V− stay at zero while everything else moves.',
+  'opamp.intuition.noninverting':
+    'The output rises until the divider Rf–R1 brings the − pin up to Vin. The divider ratio is R1/(R1+Rf), so the output must be Vin times the inverse: 1 + Rf/R1. Set Rf to zero and you get the follower.',
+  'opamp.intuition.follower':
+    'With the output tied to the − pin, rule 2 forces Vout = Vin directly. The point is current, not voltage: the source feeding the + pin supplies nothing, while the output can drive a heavy load. It is an impedance converter.',
+  'opamp.intuition.comparator':
+    'Without feedback the enormous open-loop gain is all that is left. A few microvolts of difference saturate the output, so it lives at one rail or the other. Real comparators add a little hysteresis to stop chatter around the threshold.',
+  'opamp.try':
+    'Push the gain up until the output hits the rails: the sine becomes a trapezoid. That flat top is clipping, the sound of every overdriven guitar amp. Then lower Vcc and watch the rails close in on the signal.',
+  'opamp.supply': 'Supply rails',
+  'opamp.vin': 'Input amplitude',
+  'opamp.vref': 'Reference',
+  'opamp.gain': 'Gain',
+  'opamp.clipping': 'Clipping: the output wants to reach {peak} but the rails are at ±{vcc}. The peaks are cut flat.',
+  'opamp.if': 'if',
+  'opamp.else': 'otherwise',
 } as const
 
 export type StringKey = keyof typeof en
@@ -271,7 +308,7 @@ const nb: Record<StringKey, string> = {
   'q.impedance': 'Impedans',
 
   'circuits.title': 'Kretsteori',
-  'circuits.sub': 'Start med Ohms lov, møt så de tre grunnkomponentene, og sett dem sammen.',
+  'circuits.sub': 'Grunnlaget først, så komponentene én etter én. Hver side er noe du kan dra i.',
   'circuits.ohm.title': 'Ohms lov',
   'circuits.ohm.sub': 'Hvordan spenning, strøm og motstand drar i hverandre.',
   'circuits.components.title': 'Motstand, spole, kondensator',
@@ -419,6 +456,41 @@ const nb: Record<StringKey, string> = {
   'lab.empty': 'Tomt brett. Velg et verktøy over og dra for å tegne, eller last inn et eksempel.',
   'notfound.title': 'Ingenting på denne noden',
   'notfound.sub': 'Siden du ba om finnes ikke. Kretsen er brutt.',
+  'learn.sec.fund': 'Grunnlag',
+  'learn.sec.comp': 'Komponenter',
+  'circuits.opamp.title': 'Operasjonsforsterker',
+  'circuits.opamp.sub': 'To gylne regler, fire koblinger, og hva som skjer ved forsyningsgrensene.',
+
+  'opamp.lead':
+    'En operasjonsforsterker forsterker forskjellen mellom de to inngangene med en enorm faktor. Alene gjør det bare at utgangen smeller i en forsyningsgrense. Lukk sløyfen med motstander, og det er motstandene, ikke brikken, som bestemmer forsterkningen.',
+  'opamp.rules': 'De to gylne reglene',
+  'opamp.rule1': 'Det går ingen strøm inn i noen av inngangene.',
+  'opamp.rule2': 'Med negativ tilbakekobling gjør utgangen det som trengs for at V+ skal bli lik V−.',
+  'opamp.cfg.inverting': 'Inverterende',
+  'opamp.cfg.noninverting': 'Ikke-inverterende',
+  'opamp.cfg.follower': 'Spenningsfølger',
+  'opamp.cfg.comparator': 'Komparator',
+  'opamp.cfg.inverting.desc': 'Inngang gjennom Rin til −-pinnen, Rf fører utgangen tilbake. Forsterkningen er −Rf/Rin, og −-pinnen ligger på 0 V: en virtuell jord.',
+  'opamp.cfg.noninverting.desc': 'Inngang på +-pinnen, en deler fra utgangen setter −-pinnen. Forsterkningen er 1 + Rf/R1, aldri under én, og inngangen trekker ingen strøm.',
+  'opamp.cfg.follower.desc': 'Utgangen koblet rett til −-pinnen. Forsterkningen er nøyaktig én. Ubrukelig på papiret, uunnværlig i praksis: den kopierer en spenning uten å belaste kilden.',
+  'opamp.cfg.comparator.desc': 'Ingen tilbakekobling. Utgangen ligger på +Vcc når Vin er over Vref og på −Vcc under. Et analogt signal blir digitalt.',
+  'opamp.intuition.inverting':
+    'Regel 2 låser −-inngangen til 0 V fordi +-inngangen er jordet. Regel 1 sier at strømmen gjennom Rin ikke har noe annet sted å gå enn gjennom Rf. Dermed er Vin/Rin = −Vout/Rf, og forholdet mellom motstandene er forsterkningen. Se at V− står på null mens alt annet beveger seg.',
+  'opamp.intuition.noninverting':
+    'Utgangen stiger til deleren Rf–R1 løfter −-pinnen opp til Vin. Delerforholdet er R1/(R1+Rf), så utgangen må være Vin ganger det omvendte: 1 + Rf/R1. Sett Rf til null og du har spenningsfølgeren.',
+  'opamp.intuition.follower':
+    'Med utgangen knyttet til −-pinnen tvinger regel 2 fram Vout = Vin direkte. Poenget er strøm, ikke spenning: kilden som mater +-pinnen leverer ingenting, mens utgangen kan drive en tung last. Det er en impedansomformer.',
+  'opamp.intuition.comparator':
+    'Uten tilbakekobling er det bare den enorme åpne forsterkningen igjen. Noen få mikrovolt forskjell metter utgangen, så den ligger på den ene eller andre grensen. Ekte komparatorer legger til litt hysterese for å unngå skravling rundt terskelen.',
+  'opamp.try':
+    'Skru opp forsterkningen til utgangen treffer grensene: sinusen blir en trapes. Den flate toppen er klipping, lyden av alle overstyrte gitarforsterkere. Senk så Vcc og se grensene lukke seg om signalet.',
+  'opamp.supply': 'Forsyningsgrenser',
+  'opamp.vin': 'Inngangsamplitude',
+  'opamp.vref': 'Referanse',
+  'opamp.gain': 'Forsterkning',
+  'opamp.clipping': 'Klipping: utgangen vil nå {peak}, men grensene ligger på ±{vcc}. Toppene kuttes flate.',
+  'opamp.if': 'hvis',
+  'opamp.else': 'ellers',
 }
 
 export const strings: Record<Lang, Record<StringKey, string>> = { en, nb }
