@@ -633,6 +633,37 @@ input[type='range']:focus-visible {
   font-size: 0.95rem;
 }
 
+/* Numbered rule list */
+
+.rules {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+  counter-reset: rule;
+  display: grid;
+  gap: 8px;
+}
+
+.rules li {
+  counter-increment: rule;
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  font-size: 1.02rem;
+}
+
+.rules li::before {
+  content: counter(rule);
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: var(--accent-ink);
+  background: var(--accent);
+  border-radius: 3px;
+  padding: 1px 7px;
+  flex: none;
+}
+
 /* Formula display */
 
 .formula {

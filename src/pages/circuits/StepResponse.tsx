@@ -220,7 +220,7 @@ export function StepResponse() {
         </div>
       </div>
 
-      <PageNav prev={{ to: '/circuits/components', key: 'circuits.components.title' }} next={{ to: '/circuits/series-parallel', key: 'circuits.sp.title' }} />
+      <PageNav prev={{ to: '/circuits/ohm', key: 'circuits.ohm.title' }} next={{ to: '/circuits/series-parallel', key: 'circuits.sp.title' }} />
     </>
   )
 }

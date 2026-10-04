@@ -137,3 +137,22 @@ export function AcSymbol({ x, y, rotate = 0, label }: { x: number; y: number; ro
     </g>
   )
 }
+
+/** Op-amp triangle, inputs on the left (− on top, + below), output on the right. Spans x ∈ [-30, 30]. */
+export function OpAmpSymbol({ x, y, rotate = 0, label }: { x: number; y: number; rotate?: number; label?: string }) {
+  return (
+    <g transform={`translate(${x} ${y}) rotate(${rotate})`}>
+      <polygon points="-18,-26 -18,26 26,0" fill="var(--bg-elev)" stroke={stroke} strokeWidth={2} strokeLinejoin="round" />
+      <line x1={-30} y1={-12} x2={-18} y2={-12} stroke={stroke} strokeWidth={2} />
+      <line x1={-30} y1={12} x2={-18} y2={12} stroke={stroke} strokeWidth={2} />
+      <line x1={26} y1={0} x2={34} y2={0} stroke={stroke} strokeWidth={2} />
+      <text x={-12} y={-8} fontSize={13} fontWeight={700} fill={stroke} style={{ fontFamily: 'var(--mono)' }}>
+        −
+      </text>
+      <text x={-12} y={17} fontSize={13} fontWeight={700} fill={stroke} style={{ fontFamily: 'var(--mono)' }}>
+        +
+      </text>
+      {label && <Label rotate={rotate}>{label}</Label>}
+    </g>
+  )
+}
